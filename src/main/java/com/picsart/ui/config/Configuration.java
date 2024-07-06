@@ -8,14 +8,12 @@ import java.util.Properties;
 
 @Log4j2
 public class Configuration {
-    public static String BROWSER_TYPE;
 
     public static Properties MAIN_CONFIGS = readFile("src/main/resources/config.properties");
     public static String SELENIUM_URL;
 
 
     static {
-        BROWSER_TYPE = getProperty("browser", MAIN_CONFIGS);
         SELENIUM_URL = getProperty("selenium.url", MAIN_CONFIGS);
     }
 

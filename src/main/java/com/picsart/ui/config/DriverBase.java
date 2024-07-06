@@ -3,10 +3,10 @@ package com.picsart.ui.config;
 import org.openqa.selenium.WebDriver;
 
 public class DriverBase {
-    private static final ThreadLocal<WebDriver> driverPool = ThreadLocal.withInitial(DriverBase::initDriverObject);
+    private static final ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
-    private static WebDriver initDriverObject() {
-        return DriverConfig.createWebDriver(Configuration.BROWSER_TYPE);
+    public static void initDriverObject(int width, int height) {
+        driverPool.set(DriverConfig.createChromeDriver(width,height));
     }
 
     public static WebDriver getDriver() {
@@ -15,7 +15,10 @@ public class DriverBase {
 
 
     public static void closeDrivers() {
-        getDriver().quit();
-        driverPool.remove();
+        WebDriver driver = getDriver();
+        if (driver != null) {
+            driver.quit();
+            driverPool.remove();
+        }
     }
 }

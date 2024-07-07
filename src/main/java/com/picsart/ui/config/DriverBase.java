@@ -8,6 +8,10 @@ public class DriverBase {
     public static void initDriverObject(int width, int height) {
         driverPool.set(DriverConfig.createChromeDriver(width,height));
     }
+//TODO
+    public static void initDriverObject(){
+        driverPool.set(DriverConfig.createChromeDriver());
+    }
 
     public static WebDriver getDriver() {
         return driverPool.get();

@@ -9,9 +9,10 @@ import static com.picsart.ui.config.DriverBase.*;
 public class TestBase {
 
     @BeforeMethod
-    @Parameters({"width","height"})
-    public void setUp(int width, int height) {
-        initDriverObject(width,height);}
+//    @Parameters({"width","height"})
+    //TODO
+    public void setUp() {
+        initDriverObject();}
 
     @AfterMethod
     public void tearDown() {

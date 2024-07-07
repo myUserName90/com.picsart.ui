@@ -4,10 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.picsart.ui.config.DriverBase.getDriver;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class WaitHelper {
     private static int SHORT_TIMEOUT = 10;
@@ -43,6 +43,19 @@ public class WaitHelper {
 
     public WebElement waitUntilElementToBeClickable(WebElement element) {
         return wait.until(elementToBeClickable(element));
+    }
+
+
+    public void waitForPageReady() {
+        wait.until((jsReturnsValue("return document.readyState=='complete';")));
+    }
+
+    public WaitHelper waitUntilElementsListCountHigherThan(List<WebElement> elements, int count) {
+        wait.until(driver -> {
+            int elementsCount = elements.size();
+            return elementsCount > count;
+        });
+        return this;
     }
 
     public void sleep(int timeOut){

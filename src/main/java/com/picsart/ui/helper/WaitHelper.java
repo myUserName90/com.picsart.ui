@@ -1,6 +1,8 @@
 package com.picsart.ui.helper;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -10,11 +12,11 @@ import static com.picsart.ui.config.DriverBase.getDriver;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class WaitHelper {
-    private static int SHORT_TIMEOUT = 10;
+    private static final int SHORT_TIMEOUT = 10;
 
-    private static int TIMEOUT = 20;
+    private static final int TIMEOUT = 20;
 
-    private static int LONG_TIMEOUT = 50;
+    private static final int LONG_TIMEOUT = 50;
 
     private static WebDriverWait wait;
 
@@ -51,17 +53,22 @@ public class WaitHelper {
     }
 
     public WaitHelper waitUntilElementsListCountHigherThan(List<WebElement> elements, int count) {
-        wait.until(driver -> {
-            int elementsCount = elements.size();
-            return elementsCount > count;
-        });
+        By selector = By.cssSelector(webElementsToLocatorExtractor(elements));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(selector, count));
         return this;
     }
 
-    public void sleep(int timeOut){
-        try{
+    private String webElementsToLocatorExtractor(List<WebElement> elements) {
+        return elements.stream()
+                .map(selector -> selector.toString()
+                        .split("selector:")[1])
+                .map(loc -> loc.substring(0, loc.length() - 1)).findFirst().orElse("Locator not found.");
+    }
+
+    public void sleep(int timeOut) {
+        try {
             Thread.sleep(timeOut);
-        }catch (InterruptedException exception){
+        } catch (InterruptedException exception) {
             //handle thread sleep
         }
     }

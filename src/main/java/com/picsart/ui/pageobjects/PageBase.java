@@ -20,8 +20,6 @@ public abstract class PageBase<T extends PageBase<T>> {
 
     public abstract T open();
 
-    public abstract T init();
-
     public abstract String getUrlPath();
 
     protected T initPage() {

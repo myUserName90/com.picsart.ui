@@ -59,11 +59,6 @@ public class SearchPage extends PageBase<SearchPage> {
     }
 
     @Override
-    public SearchPage init() {
-        return initPage();
-    }
-
-    @Override
     public String getUrlPath() {
         return SEARCH_PAGE_PATH;
     }

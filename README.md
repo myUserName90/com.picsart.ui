@@ -19,6 +19,6 @@ This framework is designed to run a sample Selenium test in parallel on three di
   
 ``mvn clean install``
 
-3. Run the test with in parallel on three different resolutions: 1024x768, 1440x900, and 1366x768.
+3. Run the test with in parallel on three different resolutions: 1024x768, 1440x900, and 1366x768 (default resolution 1920x1080).
 
 ```mvn clean test```

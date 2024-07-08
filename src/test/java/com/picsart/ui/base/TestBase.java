@@ -11,7 +11,7 @@ public class TestBase {
 
     @Parameters({"width","height"})
     @BeforeMethod
-    public void setUp(int width, int height) {
+    public void setUp(@Optional("1920") int width, @Optional("1080") int height) {
         initDriverObject(width,height);}
 
     @AfterMethod

@@ -28,14 +28,14 @@ public class SearchPage extends PageBase<SearchPage> {
     @FindBy(css = "div[data-testid=\"search-card-root\"]")
     private List<WebElement> imageAssetsList;
 
-    @FindBy(css = "button[data-testid=\"like-button-root\"]")
-    private List<WebElement> likeBtns;
+    @FindBy(css = "#like_button_item0")
+    private WebElement firstLikeBtn;
 
-    @FindBy(css = "button[data-testid=\"save-button-root\"]")
-    private List<WebElement> saveBtns;
+    @FindBy(css = "#save_button_item0")
+    private WebElement firstSaveBtn;
 
-    @FindBy(css = "button[data-testid=\"try-now-button-root\"]")
-    private List<WebElement> tryNowBtns;
+    @FindBy(css = "#try_now_button_item0")
+    private WebElement firstTryNowBtn;
 
     @FindBy(css = "div[data-testid=\"registration-modal-container\"]")
     private WebElement registrationModalContainer;
@@ -46,8 +46,11 @@ public class SearchPage extends PageBase<SearchPage> {
     @FindBy(css = "button[data-testid=\"search-filter-header-clear\"]")
     private WebElement clearFilterBtn;
 
-    @FindBy(css = "div[data-testid=\"premium-icon-root\"]")
-    private List<WebElement> premiumIcons;
+    @FindBy(css = "div[data-automation=\"search-item-premium\"]")
+    private List<WebElement> premiumAssets;
+
+    @FindBy(css = "div[data-automation=\"search-item-premium\"] a")
+    private List<WebElement> premiumImageUrlTag;
 
 
     @Override
@@ -76,12 +79,6 @@ public class SearchPage extends PageBase<SearchPage> {
         return this;
     }
 
-    //TODO
-//    public SearchPage switchToSocialSearchFrame(){
-//        switchToFrame(frameSocialSearch);
-//        return this;
-//    }
-
     public boolean isFilterBarHidden() {
         return filterSearchBar.getAttribute("class").contains("hide");
     }
@@ -96,23 +93,20 @@ public class SearchPage extends PageBase<SearchPage> {
         return this;
     }
 
-    public boolean isLikeButtonVisible(int position) {
-        getWait().waitUntilElementsListCountHigherThan(likeBtns, 1);
-        return isElementDisplayed(likeBtns.get(position));
+    public boolean isLikeButtonVisible() {
+        return isElementDisplayed(filterBtn);
     }
 
-    public boolean isSaveButtonVisible(int position) {
-        getWait().waitUntilElementsListCountHigherThan(saveBtns, 1);
-        return isElementDisplayed(saveBtns.get(position));
+    public boolean isSaveButtonVisible() {
+        return isElementDisplayed(firstSaveBtn);
     }
 
-    public boolean isTryNowButtonVisible(int position) {
-        getWait().waitUntilElementsListCountHigherThan(tryNowBtns, 1);
-        return isElementDisplayed(tryNowBtns.get(position));
+    public boolean isTryNowButtonVisible() {
+        return isElementDisplayed(firstTryNowBtn);
     }
 
-    public SearchPage clickOnLikeBtn(int position) {
-        click(likeBtns.get(position));
+    public SearchPage clickOnLikeBtn() {
+        click(firstLikeBtn);
         getWait().sleep(50);
         return this;
     }
@@ -135,8 +129,22 @@ public class SearchPage extends PageBase<SearchPage> {
     }
 
     public SearchPage hoverOnPremiumIcons(int position) {
-        hover(premiumIcons, position);
+        hover(premiumAssets, position);
         return this;
+    }
+
+    public SearchPage clickOnTryNowButton() {
+        click(firstTryNowBtn);
+        return this;
+    }
+
+    public String getAssetUrl(int position) {
+        return getElementAttribute(premiumImageUrlTag.get(position), "href");
+    }
+
+
+    public String getCurrentUrl() {
+        return getUrl();
     }
 
 

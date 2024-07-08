@@ -15,13 +15,4 @@ public class DriverConfig {
         return driver;
     }
 
-    //TODO
-    public static WebDriver createChromeDriver() {
-        WebDriver driver;
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(String.format("--window-size=%d,%d", 1440, 900));
-        driver = new ChromeDriver(options);
-        return driver;
-    }
-
 }

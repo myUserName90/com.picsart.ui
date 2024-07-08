@@ -1,12 +1,10 @@
 package com.picsart.ui.config;
 
-import lombok.extern.log4j.Log4j2;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@Log4j2
 public class Configuration {
 
     public static Properties MAIN_CONFIGS = readFile("src/main/resources/config.properties");
@@ -18,7 +16,6 @@ public class Configuration {
     }
 
     public static String getProperty(String key, Properties properties) {
-        log.info("Getting property from " + properties + "by " + key);
         return properties.getProperty(key);
     }
 
